@@ -1,0 +1,16 @@
+node_modules/
+
+# Environment variables (if you ever add secrets/API keys)
+.env
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
