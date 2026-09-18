@@ -60,6 +60,10 @@ Room lists are emitted **per socket** so each client sees the correct DM peer na
 - Names and messages are length-capped server-side (30 / 2000 chars).
 - State is in-memory: a server restart clears all rooms and users.
 
+## Roadmap
+
+See [ROADMAP.md](./ROADMAP.md) for planned future additions (persistence, accounts, UX polish, rich messaging, deployment).
+
 ## Scope & limitations
 
 - No authentication or persistence (by design — this is the "core" scope).
