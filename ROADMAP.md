@@ -57,14 +57,24 @@ Ideas for future additions, roughly ordered by priority. Each item notes what it
 - [ ] **Horizontal scaling** — Socket.IO Redis adapter if we ever need multiple server instances.
 - [ ] **Config via env** — port, max message size, rate limits, storage path.
 
-## 7. Testing & quality
+## 7. Encryption & security
+
+**Why:** A messaging app carries private conversations. Right now everything is plaintext over HTTP and the server holds all messages in memory.
+
+- [ ] **Transport encryption (TLS/HTTPS)** — serve over HTTPS (reverse proxy or PaaS-provided TLS). Encrypts data in transit and unlocks browser notifications + MediaRecorder. *Low effort, high value — do this before going public.*
+- [ ] **End-to-end encryption (E2EE)** — encrypt messages client-side so the server only ever sees ciphertext. Requires key exchange (per-room / per-DM shared secret) and key management. *High value as a privacy differentiator, but high effort — and it means the server can no longer search or store readable history.*
+- [ ] **Key management** — how keys are generated, stored, and rotated (per-user and per-room). Pairs with Accounts (stable IDs).
+- [ ] **Encryption at rest** — if we add persistence, encrypt the stored messages / DB.
+- [ ] **Message integrity** — sign/HMAC messages so they can't be tampered with in transit.
+
+## 8. Testing & quality
 
 - [ ] **Unit tests** — extract server logic (room model, DM keying) into testable modules; cover edge cases (same-name users, rapid join/leave).
 - [ ] **CI** — GitHub Actions: `npm ci && npm test` on push (server must be started in the workflow).
 - [ ] **Lint** — ESLint for server + client JS.
 - [ ] **Load test** — simulate 50–100 concurrent sockets to find bottlenecks.
 
-## 8. Deployment
+## 9. Deployment
 
 - [ ] **Dockerfile** — containerize for one-command deploys.
 - [ ] **PaaS deploy** — Render/Railway/Fly.io with a public URL (needs WebSocket support).
@@ -77,4 +87,6 @@ Ideas for future additions, roughly ordered by priority. Each item notes what it
 2. **Accounts** (stable IDs) — fixes the same-name DM collision
 3. **UX polish** (unread badges, timestamps, edit/delete) — makes it feel like a real chat app
 4. **Richer messaging** (markdown, file sharing)
-5. **Testing/CI + deployment** — so it can live somewhere public
+5. **TLS/HTTPS** — required before going public (and unlocks notifications/voice)
+6. **Testing/CI + deployment** — so it can live somewhere public
+7. **E2EE** — the big privacy differentiator; do last, since it constrains search/history
